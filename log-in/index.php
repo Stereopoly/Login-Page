@@ -1,5 +1,7 @@
 <?php 
 
+session_start();
+
 $link = mysql_connect('oscarbjorkmancom.ipagemysql.com', 'objorkman', 'Lovelego123');  // Connection to database
 // $link = mysql_connect('localhost', 'root', 'lovelego');  
 
@@ -30,10 +32,12 @@ if (isset($_POST['user'])) {
 //    }
    
 	if (mysql_num_rows($res) == 1) {
+		$_SESSION['username'] = $username;
+		$_SESSION['password'] = $password;
+		
         if ($response.success == true) {
-            echo "You have successfully logged in.";
-	//		header("Location: /Private.php");
-            exit();
+  //          echo "You have successfully logged in.";
+			header("Location: http://www.oscarbjorkman.com/login/Private.php");
         }
         else {
 			echo "Do the recaptcha";
@@ -75,7 +79,7 @@ if (isset($_POST['user'])) {
 
   <div class="login-card">
     <h1>Log-in</h1><br>
-  <form method="post" action="login.php">
+  <form method="post" action="index.php">
     <input type="text" name="user" placeholder="Username">
     <input type="password" name="pass" placeholder="Password">
     <div class="g-recaptcha" data-sitekey="6LeqQQMTAAAAAP4ygyt_T80jUuulsR7qrxmOtTKq"></div>
